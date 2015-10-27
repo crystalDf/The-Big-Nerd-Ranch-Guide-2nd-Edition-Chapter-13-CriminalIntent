@@ -53,27 +53,12 @@ public class TimePickerFragment extends PickerFragment {
     }
 
     @Override
-    protected View getDialogView() {
-        return LayoutInflater.from(getContext()).inflate(R.layout.dialog_time, null);
-    }
-
-    @Override
-    protected int getDialogPickerId() {
-        return R.id.dialog_time_time_picker;
-    }
-
-    @Override
-    protected int getPickerTitle() {
-        return R.string.time_picker_title;
-    }
-
-    @Override
     protected void setDate(Calendar calendar, View view, int pickerId) {
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         mTimePicker = (TimePicker) view.findViewById(pickerId);
-        mTimePicker.setIs24HourView(true);
+        mTimePicker.setIs24HourView(false);
         mTimePicker.setCurrentHour(hourOfDay);
         mTimePicker.setCurrentMinute(minute);
     }

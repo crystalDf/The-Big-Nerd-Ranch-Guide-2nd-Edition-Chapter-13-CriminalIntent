@@ -26,8 +26,6 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mCrimeAdapter;
 
-    private int mCrimePosition;
-
     private boolean mSubtitleVisible;
 
     @Override
@@ -70,7 +68,6 @@ public class CrimeListFragment extends Fragment {
             mCrimeAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mCrimeAdapter);
         } else {
-//            mCrimeAdapter.notifyItemChanged(mCrimePosition);
             mCrimeAdapter.notifyDataSetChanged();
         }
 
@@ -91,7 +88,6 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCrimePosition = getAdapterPosition();
                     Intent intent = CrimePagerActivity.newIntent(getContext(), mCrime.getId());
                     startActivity(intent);
                 }
@@ -184,9 +180,16 @@ public class CrimeListFragment extends Fragment {
     private void updateSubtitle() {
         CrimeLab crimeLab = CrimeLab.getInstance(getContext());
         int crimeCount = crimeLab.getCrimes().size();
-//        String subtitle = getString(R.string.subtitle_format, crimeCount);
-        String subtitle = getResources().getQuantityString(R.plurals.subtitle_plural,
-                crimeCount, crimeCount);
+//        String subtitle = getResources().getQuantityString(R.plurals.subtitle_plural,
+//                crimeCount, crimeCount);
+
+        String subtitle;
+
+        if (crimeCount == 1) {
+            subtitle = getString(R.string.subtitle_singular_format);
+        } else {
+            subtitle = getString(R.string.subtitle_plural_format, crimeCount);
+        }
 
         if (!mSubtitleVisible) {
             subtitle = null;
