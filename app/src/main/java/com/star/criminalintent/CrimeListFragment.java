@@ -87,13 +87,8 @@ public class CrimeListFragment extends Fragment {
 
         updateSubtitle();
 
-        if (CrimeLab.getInstance(getContext()).getCrimes().size() == 0) {
-            mCrimeRecyclerView.setVisibility(View.GONE);
-            mEmptyViewLinearLayout.setVisibility(View.VISIBLE);
-        } else {
-            mCrimeRecyclerView.setVisibility(View.VISIBLE);
-            mEmptyViewLinearLayout.setVisibility(View.GONE);
-        }
+        int crimeCount = CrimeLab.getInstance(getContext()).getCrimes().size();
+        mEmptyViewLinearLayout.setVisibility(crimeCount == 0 ? View.VISIBLE : View.GONE);
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder {
