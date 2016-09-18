@@ -51,7 +51,7 @@ public class CrimeListFragment extends Fragment {
 
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mCrimeRecyclerView.setLayoutManager(linearLayoutManager);
 
         mEmptyViewLinearLayout = (LinearLayout) view.findViewById(R.id.empty_view);
@@ -75,7 +75,7 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateUI() {
-        CrimeLab crimeLab = CrimeLab.getInstance(getContext());
+        CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
         if (mCrimeAdapter == null) {
@@ -87,7 +87,7 @@ public class CrimeListFragment extends Fragment {
 
         updateSubtitle();
 
-        int crimeCount = CrimeLab.getInstance(getContext()).getCrimes().size();
+        int crimeCount = CrimeLab.getInstance(getActivity()).getCrimes().size();
         mEmptyViewLinearLayout.setVisibility(crimeCount == 0 ? View.VISIBLE : View.GONE);
     }
 
@@ -99,13 +99,13 @@ public class CrimeListFragment extends Fragment {
         private CheckBox mSolvedCheckBox;
         private TextView mDateTextView;
 
-        public CrimeHolder(final View itemView) {
+        public CrimeHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = CrimePagerActivity.newIntent(getContext(), mCrime.getId());
+                    Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
                     startActivity(intent);
                 }
             });
@@ -136,7 +136,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
             View view = layoutInflater.inflate(R.layout.list_item_crime, parent, false);
 
@@ -192,7 +192,7 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateSubtitle() {
-        CrimeLab crimeLab = CrimeLab.getInstance(getContext());
+        CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
 //        String subtitle = getResources().getQuantityString(R.plurals.subtitle_plural,
 //                crimeCount, crimeCount);
@@ -215,8 +215,8 @@ public class CrimeListFragment extends Fragment {
 
     private void newCrime() {
         Crime crime = new Crime();
-        CrimeLab.getInstance(getContext()).addCrime(crime);
-        Intent intent = CrimePagerActivity.newIntent(getContext(), crime.getId());
+        CrimeLab.getInstance(getActivity()).addCrime(crime);
+        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
         startActivity(intent);
     }
 }
