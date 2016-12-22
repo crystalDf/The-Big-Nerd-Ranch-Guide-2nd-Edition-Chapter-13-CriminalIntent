@@ -177,7 +177,7 @@ public class CrimeListFragment extends Fragment {
                 return true;
             case R.id.menu_item_show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
-                getActivity().invalidateOptionsMenu();
+                getActivity().supportInvalidateOptionsMenu();
                 updateSubtitle();
                 return true;
             default:
