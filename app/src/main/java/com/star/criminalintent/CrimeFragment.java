@@ -177,4 +177,5 @@ public class CrimeFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
